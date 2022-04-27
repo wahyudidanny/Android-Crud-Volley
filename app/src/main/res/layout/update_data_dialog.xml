@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/edt_updateId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ID" />
+
+    <EditText
+        android:id="@+id/edt_updateItemCode"
+        android:layout_width="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_height="50dp"
+        android:hint="item code" />
+
+    <EditText
+        android:id="@+id/edt_updateItemName"
+        android:layout_width="match_parent"
+        android:layout_marginTop="100dp"
+        android:layout_height="50dp"
+        android:hint="item name" />
+
+    <EditText
+        android:id="@+id/edt_updateItemPrice"
+        android:layout_width="match_parent"
+        android:layout_marginTop="150dp"
+        android:layout_height="50dp"
+        android:hint="item price" />
+
+    <EditText
+        android:id="@+id/edt_updateItemStock"
+        android:layout_width="match_parent"
+        android:layout_marginTop="200dp"
+        android:layout_height="50dp"
+        android:hint="item stock" />
+
+</RelativeLayout>
