@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class CreateDataDialog extends AppCompatDialogFragment {
+public class CreateDataDialog extends AppCompatDialogFragment{
 
     private EditText addItemCode,addItemName,addItemPrice,addItemStock;
     private CreateDialogListener listener;
@@ -25,7 +25,7 @@ public class CreateDataDialog extends AppCompatDialogFragment {
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        dialogInterface.cancel();
                     }
                 }).setPositiveButton("Submit", new DialogInterface.OnClickListener() {
             @Override

@@ -66,7 +66,8 @@ public class GetDataActivity extends AppCompatActivity implements CreateDataDial
         adapter= new RecyclerAdapter(arrayList,this );
         recyclerView.setAdapter(adapter);
         progressDialog = new ProgressDialog(GetDataActivity.this);
-        //refreshLayout = findViewById(R.id.refreshLayout);
+        refreshLayout = findViewById(R.id.refreshLayout);
+
         //read data
         getJSON();
         new Handler().postDelayed(new Runnable() {
@@ -83,14 +84,21 @@ public class GetDataActivity extends AppCompatActivity implements CreateDataDial
             }
         });
 
-//        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//              refreshLayout.setRefreshing(false);
-//            }
-//        });
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
+                refreshLayout.setRefreshing(false);
+
+            }
+        });
 
     }
+
 
 
     public void openCreateDialog(){
@@ -101,6 +109,7 @@ public class GetDataActivity extends AppCompatActivity implements CreateDataDial
        // UpdateDataDialog updateDataDialog = new UpdateDataDialog();
        // updateDataDialog.show(getSupportFragmentManager(),"");
     }
+
 
     public void readDataFromServer(){
         if(checkNetworkConnection()){
@@ -149,6 +158,14 @@ public class GetDataActivity extends AppCompatActivity implements CreateDataDial
     }
 
     @Override
+    public void onResume()
+    {  // After a pause OR at startup
+        super.onResume();
+        //Refresh your stuff here
+    }
+
+
+    @Override
     public void onNoteClick(int position) {
     /*
         Log.d(TAG, "onNoteClick: " + position);
@@ -163,6 +180,10 @@ public class GetDataActivity extends AppCompatActivity implements CreateDataDial
         Bundle data = new Bundle();
         //data.putSerializable("Data",newArrayList);
         data.putParcelableArrayList("Data",newArrayList);
+        //data.put("Progress",GetDataActivity.this);
+
+
+        //data.put
         fragment.setArguments(data);
 
         //UpdateDataDialog update = new UpdateDataDialog();
@@ -216,6 +237,7 @@ public class GetDataActivity extends AppCompatActivity implements CreateDataDial
             return null;
 
         }
+
 
         @Override
         protected void onProgressUpdate(Void... values) {

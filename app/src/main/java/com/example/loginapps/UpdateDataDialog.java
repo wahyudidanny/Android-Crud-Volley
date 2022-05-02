@@ -49,12 +49,23 @@ public class UpdateDataDialog extends AppCompatDialogFragment{
             newArrayList.addAll(data.getParcelableArrayList("Data"));
         }
 
-
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.update_data_dialog, null);
         builder.setView(view)
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        //finish();
+                       // overridePendingTransition(0, 0);
+                      //  Intent intent  = new Intent(this,GetDataActivity.class);
+                       // startActivity(getIntent());
+                       // overridePendingTransition(0, 0);
+                       // refreshLayout.setRefreshing(false);
+//                        Intent myIntent = new Intent(getContext(), GetDataActivity.class);
+//                        startActivity(myIntent);
+                    }
+                })
                 .setTitle("Modify Data")
                 .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
@@ -81,6 +92,7 @@ public class UpdateDataDialog extends AppCompatDialogFragment{
 
                     updateItemName.setText(item_name);
                     dialogInterface.dismiss();
+
             }
         });
 
@@ -100,7 +112,9 @@ public class UpdateDataDialog extends AppCompatDialogFragment{
         updateItemStock = view.findViewById(R.id.edt_updateItemStock);
         updateItemStock.setText(String.valueOf((int) newArrayList.get(0).getStock()));
 
+
         return builder.create();
+
     }
 
 
@@ -200,12 +214,12 @@ public class UpdateDataDialog extends AppCompatDialogFragment{
 
         VolleyConnection.getInstance(null).addToRequestQue(stringRequest);
 
-//            new Handler().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    dialogInterface.cancel();
-//                }
-//            },2000);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dialogInterface.cancel();
+                }
+            },2000);
 
     }
 
