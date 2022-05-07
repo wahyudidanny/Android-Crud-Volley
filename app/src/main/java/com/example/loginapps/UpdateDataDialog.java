@@ -53,25 +53,15 @@ public class UpdateDataDialog extends AppCompatDialogFragment{
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.update_data_dialog, null);
         builder.setView(view)
-                .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        //finish();
-                       // overridePendingTransition(0, 0);
-                      //  Intent intent  = new Intent(this,GetDataActivity.class);
-                       // startActivity(getIntent());
-                       // overridePendingTransition(0, 0);
-                       // refreshLayout.setRefreshing(false);
-//                        Intent myIntent = new Intent(getContext(), GetDataActivity.class);
-//                        startActivity(myIntent);
-                    }
-                })
                 .setTitle("Modify Data")
                 .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String id = updateItemID.getText().toString();
                         deleteDataToServer(id);
+                        Intent intent = new Intent(getContext(), GetDataActivity.class);
+                        startActivity(intent);
+                        CallbackResetPreviousActivity();
                         dialogInterface.dismiss();
                     }
                 })
@@ -89,8 +79,8 @@ public class UpdateDataDialog extends AppCompatDialogFragment{
                     double itemPrice = Double.parseDouble(String.valueOf(updateItemPrice.getText()));
                     int itemStock = Integer.parseInt(String.valueOf(updateItemStock.getText()));
                     updateDataToServer(id,item_code,item_name,itemPrice,itemStock,dialogInterface);
-
                     updateItemName.setText(item_name);
+                    CallbackResetPreviousActivity();
                     dialogInterface.dismiss();
 
             }
@@ -117,6 +107,13 @@ public class UpdateDataDialog extends AppCompatDialogFragment{
 
     }
 
+
+
+    public void CallbackResetPreviousActivity(){
+        Intent intent = new Intent(getContext(), GetDataActivity.class);
+        startActivity(intent);
+
+    }
 
         public void deleteDataToServer(final String id) {
 

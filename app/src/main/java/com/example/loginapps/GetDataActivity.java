@@ -53,6 +53,7 @@ public class GetDataActivity extends AppCompatActivity implements CreateDataDial
     ProgressDialog progressDialog;
     int countData = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -165,6 +166,10 @@ public class GetDataActivity extends AppCompatActivity implements CreateDataDial
     }
 
 
+
+
+
+
     @Override
     public void onNoteClick(int position) {
     /*
@@ -187,7 +192,8 @@ public class GetDataActivity extends AppCompatActivity implements CreateDataDial
         fragment.setArguments(data);
 
         //UpdateDataDialog update = new UpdateDataDialog();
-        fragment.show(getSupportFragmentManager(),"Add Item");
+        fragment.show(getSupportFragmentManager(),"Edit Item");
+
 
 
         //fragmentTransaction.replace(fragment).commit();
