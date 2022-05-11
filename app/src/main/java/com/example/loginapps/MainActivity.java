@@ -139,4 +139,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkSession();
+    }
+
+    private void checkSession() {
+
+        //SessionManagement sessionManagement = new SessionManagement(Ma.this);
+       // int userID = sessionManagement.getSession();
+
+      //  if(userID != -1){
+            //user id logged in and move to main activity
+        //    moveToMainActivity();
+       // }else{
+            //do nothing
+       // }
+
+    }
 }

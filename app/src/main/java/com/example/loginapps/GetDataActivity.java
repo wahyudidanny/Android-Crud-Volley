@@ -1,6 +1,8 @@
 package com.example.loginapps;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -194,14 +196,39 @@ public class GetDataActivity extends AppCompatActivity implements CreateDataDial
         //UpdateDataDialog update = new UpdateDataDialog();
         fragment.show(getSupportFragmentManager(),"Edit Item");
 
-
-
         //fragmentTransaction.replace(fragment).commit();
         /*ArrayList<Data> newArrayList = new ArrayList<>();
         newArrayList.add(arrayList.get(position));
         Intent intent  = new Intent(this,SomeActivity.class);
         intent.putExtra("data",newArrayList);
         startActivity(intent);*/
+    }
+
+    public void Logout(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(GetDataActivity.this);
+        builder.setMessage("Do you want to log out ?")
+                .setTitle("Alert !")
+                .setCancelable(false)
+                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                Intent intent  = new Intent(GetDataActivity.this ,Login.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                        })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                dialog.cancel();
+                            }
+                        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
     }
 
     class BackgroundTask extends AsyncTask<Void,Void,String> {
