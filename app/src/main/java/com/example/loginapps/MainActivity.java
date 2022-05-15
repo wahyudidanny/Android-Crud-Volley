@@ -147,15 +147,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkSession() {
 
-        //SessionManagement sessionManagement = new SessionManagement(Ma.this);
-       // int userID = sessionManagement.getSession();
+        SessionManagement sessionManagement = new SessionManagement(getApplicationContext());
+        int userID = sessionManagement.getSession();
 
-      //  if(userID != -1){
-            //user id logged in and move to main activity
-        //    moveToMainActivity();
-       // }else{
-            //do nothing
-       // }
+        if(userID != -1){
+            Intent dashboardIntent = new Intent(MainActivity.this ,GetDataActivity.class);
+            startActivity(dashboardIntent);
+        }
+
+
+
 
     }
 }

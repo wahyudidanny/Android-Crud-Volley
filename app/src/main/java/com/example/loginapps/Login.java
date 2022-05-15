@@ -21,9 +21,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,15 +77,83 @@ public class Login extends AppCompatActivity {
                         public void onResponse(String response) {
                             try {
                                     JSONObject jsonObject= new JSONObject(response);
-                                    String resp = jsonObject.getString("server_response" );
-                                if (resp.equals("[{\"status\":\"OK\"}]")){
-                                    Toast.makeText(getApplicationContext(),"Login berhasil", Toast.LENGTH_SHORT).show();
-                                 //  Intent dashboardIntent = new Intent(Login.this ,Dashboard.class);
-                                   Intent dashboardIntent = new Intent(Login.this ,GetDataActivity.class);
-                                    startActivity(dashboardIntent);
-                                }else{
-                                    Toast.makeText(getApplicationContext(),resp, Toast.LENGTH_SHORT).show();
+                                    JSONArray serverResponse = jsonObject.getJSONArray("server_response");
+
+
+                                for(int i=0; i < serverResponse.length(); i++){
+
+                                    JSONObject jsonData = serverResponse.getJSONObject(i);
+
+                                    if (jsonData.has("status")){
+                                        String resp = jsonObject.getString("server_response" );
+                                        Toast.makeText(getApplicationContext(),resp, Toast.LENGTH_SHORT).show();
+                                    }else{
+
+                                        Users users = new Users(
+                                                jsonData.getInt("id"),
+                                                jsonData.getString("fullname"),
+                                                jsonData.getString("username"),
+                                                jsonData.getString("email")
+                                        );
+
+                                       SessionManagement sessionManagement = new SessionManagement(Login.this);
+                                       sessionManagement.saveSession(users);
+
+                                       Intent dashboardIntent = new Intent(Login.this ,GetDataActivity.class);
+                                       startActivity(dashboardIntent);
+
+                                    }
+
                                 }
+
+
+                                   // if (!serverResponse.has("status")){ // error
+                                    //    Toast.makeText(getApplicationContext(),jsonObject.getString("server_response"), Toast.LENGTH_SHORT).show();
+                                  ///  }else{
+//
+//                                        Users users = new Users(
+//                                                jsonObject.getString("id"),
+//                                                jsonObject.getString("fullname"),
+//                                                jsonObject.getString("username"),
+//                                                jsonObject.getString("email")
+//
+//                                        );
+
+
+                                  //  }
+
+                           // while(countData< serverResponse.length()){
+                              //  JSONObject  = serverResponse.getJSONObject(countData);
+//                                    id = jsonObject.getString("id");
+//                                    item_code= jsonObject.getString("item_code");
+//                                    item_name= jsonObject.getString("item_name");
+//                                    item_price= Double.parseDouble(jsonObject.getString("price"));
+//                                    item_stock= Integer.parseInt(jsonObject.getString("stock"));
+//                                    arrayList.add(new Data(id,item_code,item_name,item_price,item_stock));
+//                                    countData++;
+//
+                          //   }
+
+                                   // String resp = jsonObject.getString("server_response" );
+//
+//                                if (resp.equals("[{\"status\":\"OK\"}]")){
+//                                    Toast.makeText(getApplicationContext(),"Login berhasil", Toast.LENGTH_SHORT).show();
+//                                 //  Intent dashboardIntent = new Intent(Login.this ,Dashboard.class);
+//
+//                                 //begin session
+//                                    Users user;
+//                                    //Users user = new Users("1","0", username.toString(),"" , );
+//                                    //SessionManagement sessionManagement = new SessionManagement(Login.this);
+//                                   // sessionManagement.saveSession(user);
+//
+//                                   Intent dashboardIntent = new Intent(Login.this ,GetDataActivity.class);
+//                                    startActivity(dashboardIntent);
+//
+//
+//                                }else{
+//                                    Toast.makeText(getApplicationContext(),resp, Toast.LENGTH_SHORT).show();
+//                                }
+
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

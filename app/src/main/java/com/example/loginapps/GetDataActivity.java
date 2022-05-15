@@ -102,8 +102,6 @@ public class GetDataActivity extends AppCompatActivity implements CreateDataDial
 
     }
 
-
-
     public void openCreateDialog(){
 
         CreateDataDialog createDataDialog = new CreateDataDialog();
@@ -124,6 +122,7 @@ public class GetDataActivity extends AppCompatActivity implements CreateDataDial
                 double item_price;
                 int item_stock;
                 Button updateData;
+
 
                 while(countData< serverResponse.length()){
                     JSONObject jsonObject = serverResponse.getJSONObject(countData);
@@ -213,6 +212,9 @@ public class GetDataActivity extends AppCompatActivity implements CreateDataDial
                             @Override
                             public void onClick(DialogInterface dialog, int which)
                             {
+                                SessionManagement sessionManagement = new SessionManagement(GetDataActivity.this);
+                                sessionManagement.removeSession();
+
                                 Intent intent  = new Intent(GetDataActivity.this ,Login.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
